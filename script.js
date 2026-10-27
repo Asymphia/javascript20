@@ -39,7 +39,37 @@
   });
 
   cw2.addEventListener("click", function () {
-    //TODO
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((array) => {
+        let html = "";
+
+        html = "<table>";
+
+        html += `
+        <tr>
+          <th>Id</th>
+          <th>User Id</th>
+          <th>Title</th>
+          <th>Body</th>
+        </tr>
+      `;
+
+        array.forEach((item) => {
+          html += `
+          <tr>
+            <td>${item.id}</td>
+            <td>${item.userId}</td>
+            <td style='color:red;'>${item.title}</td>
+            <td style='color:green; text-align:center;'>${item.body}</td>
+          </tr>
+        `;
+        });
+
+        html += "</table>";
+
+        answer.innerHTML = html;
+      });
   });
 
   cw3.addEventListener("click", function () {
