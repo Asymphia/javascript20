@@ -81,20 +81,37 @@
   });
 
   cw3.addEventListener("click", function () {
-    fetch("https://catfact.ninja/facts?limit=5")
-      .then((response) => response.json())
-      .then((array) => {
-        answer.innerHTML = "<ul>";
+    Promise.all([
+      fetch(
+        "https://my-json-server.typicode.com/trak2025zz/json-server/posts",
+      ).then((r) => r.json()),
+      fetch(
+        "https://my-json-server.typicode.com/trak2025zz/json-server/comments",
+      ).then((r) => r.json()),
+      fetch(
+        "https://my-json-server.typicode.com/trak2025zz/json-server/profile",
+      ).then((r) => r.json()),
+    ]).then(([posts, comments, profile]) => {
+      answer.innerHTML = `<h3>Posts</h3>`;
+      answer.innerHTML += `
+        <pre>
+          ${JSON.stringify(posts, null, 2)}
+        </pre>
+      `;
 
-        array.data.forEach((element) => {
-          answer.innerHTML += `
-            <li>
-              ${element.fact}
-            </li>
-          `;
-        });
+      answer.innerHTML += `<h3>Comments</h3>`;
+      answer.innerHTML += `
+        <pre>
+          ${JSON.stringify(comments, null, 2)}
+        </pre>
+      `;
 
-        answer.innerHTML += "</ul>";
-      });
+      answer.innerHTML += `<h3>Profile</h3>`;
+      answer.innerHTML += `
+        <pre>
+          ${JSON.stringify(profile, null, 2)}
+        </pre>
+      `;
+    });
   });
 })();
