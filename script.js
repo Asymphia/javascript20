@@ -42,6 +42,8 @@
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
       .then((array) => {
+        console.log(JSON.stringify(array[0]));
+
         let html = "";
 
         html = "<table>";
