@@ -39,6 +39,12 @@
   });
 
   cw2.addEventListener("click", function () {
+    answer.innerHTML = `
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%); background: blue; padding: 20px 60px; color: white;">
+        Loading...
+      </div>
+    `;
+
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
       .then((array) => {
