@@ -15,22 +15,18 @@
   });
 
   cw1.addEventListener("click", function () {
+    const value = document.querySelector("select[name='postId']").value;
+
     answer.innerHTML = "Loading...";
 
-    fetch("https://jsonplaceholder.typicode.com/posts")
+    fetch(`https://jsonplaceholder.typicode.com/posts/${value}`)
       .then((response) => response.json())
       .then((array) => {
         answer.innerHTML = "<ul>";
 
-        array.forEach((item) => {
-          answer.innerHTML += `<li>Id: ${item.id}</li>`;
-
-          answer.innerHTML += "<ul>";
-          for (const key in item) {
-            answer.innerHTML += `<li>${key}: ${item[key]}</li>`;
-          }
-          answer.innerHTML += "</ul>";
-        });
+        for (const key in array) {
+          answer.innerHTML += `<li>${key}: ${array[key]}</li>`;
+        }
 
         answer.innerHTML += "</ul>";
       });
