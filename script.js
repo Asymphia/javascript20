@@ -81,6 +81,20 @@
   });
 
   cw3.addEventListener("click", function () {
-    //TODO
+    fetch("https://catfact.ninja/facts?limit=5")
+      .then((response) => response.json())
+      .then((array) => {
+        answer.innerHTML = "<ul>";
+
+        array.data.forEach((element) => {
+          answer.innerHTML += `
+            <li>
+              ${element.fact}
+            </li>
+          `;
+        });
+
+        answer.innerHTML += "</ul>";
+      });
   });
 })();
