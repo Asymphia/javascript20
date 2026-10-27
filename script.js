@@ -15,20 +15,26 @@
   });
 
   cw1.addEventListener("click", function () {
-    const value = document.querySelector("select[name='postId']").value;
+    const userId = document.querySelector("input[name='userId']").value;
+    const title = document.querySelector("input[name='title']").value;
+    const body = document.querySelector("textarea[name='body']").value;
 
-    answer.innerHTML = "Loading...";
+    answer.innerHTML = "Processing...";
 
-    fetch(`https://jsonplaceholder.typicode.com/posts/${value}`)
+    fetch(`https://jsonplaceholder.typicode.com/posts/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: Number(userId),
+        title: title,
+        body: body,
+      }),
+    })
       .then((response) => response.json())
-      .then((array) => {
-        answer.innerHTML = "<ul>";
-
-        for (const key in array) {
-          answer.innerHTML += `<li>${key}: ${array[key]}</li>`;
-        }
-
-        answer.innerHTML += "</ul>";
+      .then((post) => {
+        answer.innerHTML = `Dodano nowy post o ID = ${post.id}`;
       });
   });
 
